@@ -1,0 +1,22 @@
+---
+import { euro, type PriceGroup } from '../data/site';
+interface Props { groups: PriceGroup[]; links?: boolean }
+const { groups, links = true } = Astro.props;
+---
+{groups.map((g) => (
+  <table class="prices">
+    <caption>{g.title}</caption>
+    <thead><tr><th scope="col">Behandeling</th><th scope="col">Tarief</th></tr></thead>
+    <tbody>
+      {g.items.map((p) => (
+        <tr>
+          <th scope="row">
+            {links && p.page ? <a href={p.page}>{p.label}</a> : p.label}
+            {p.note && <span class="note">{p.note}</span>}
+          </th>
+          <td>{euro(p)}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+))}

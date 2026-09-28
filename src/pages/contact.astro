@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import { site } from '../data/site';
+
+const path = '/contact/';
+---
+<Base path={path} crumbs={[{ name: 'Contact', path }]} pageType="ContactPage">
+  <section class="section">
+    <div class="wrap">
+      <div class="prose">
+        <h1>Contact en afspraak bij de podoloog</h1>
+        <p class="lead">Een afspraak bij Podologie Sint-Truiden maak je het snelst online. Liever bellen? De praktijk is telefonisch bereikbaar {site.phoneHours.days} tussen 9u en 16u.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="card">
+          <h2 style="margin-top:0">Praktijk</h2>
+          <address>
+            <strong>{site.name}</strong><br />
+            {site.practitioner}, podoloog<br />
+            {site.address.street}<br />
+            {site.address.postalCode} {site.address.locality}
+          </address>
+          <p style="margin-top:1rem">De praktijk ligt in de deelgemeente {site.address.district}, ten zuidwesten van het stadscentrum van Sint-Truiden.</p>
+          <p><a href={site.mapsUrl} rel="noopener">Route plannen in Google Maps</a></p>
+          <p class="small" style="color:var(--muted)">RIZIV-nummer {site.riziv}</p>
+        </div>
+        <div class="card">
+          <h2 style="margin-top:0">Afspraak maken</h2>
+          <p><a class="btn btn-accent" href={site.bookingUrl} rel="noopener">Online afspraak maken</a></p>
+          <p>
+            Telefoon: <a href={`tel:${site.phoneIntl}`}>{site.phone}</a><br />
+            E-mail: <a href={`mailto:${site.email}`}>{site.email}</a>
+          </p>
+          <p>Telefonisch bereikbaar {site.phoneHours.days} van 9u tot 16u.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap prose">
+      <h2>Wat neem je mee naar je eerste afspraak?</h2>
+      <ul>
+        <li>de schoenen die je het vaakst draagt, en je sportschoenen als je klachten hebt tijdens het sporten</li>
+        <li>verslagen of beeldvorming van een arts of kinesist, als je die hebt</li>
+        <li>een voorschrift van je arts, als je terugbetaling wil voor <a href="/diabetische-voetzorg/">diabetische voetzorg</a></li>
+        <li>een korte broek, zodat ik je knieën en benen kan bekijken tijdens het <a href="/biomechanisch-onderzoek/">biomechanisch onderzoek</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <Cta title="Liever meteen een moment kiezen?" text="In de online agenda zie je meteen welke momenten nog vrij zijn." />
+</Base>

@@ -1,0 +1,67 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+import PriceTable from '../components/PriceTable.astro';
+import { site, prices, allPrices, priceOf, euro } from '../data/site';
+import { faqPage, service, type Faq as FaqT } from '../data/schema';
+
+const path = '/tarieven/';
+const onderzoek = priceOf('onderzoek-volw');
+const zolen = priceOf('zolen-volw');
+const eersteTraject = (onderzoek.price ?? 0) + (zolen.price ?? 0);
+const nagels = prices.find((g) => g.title.startsWith('Specialisatie'))!.items;
+const nagelMin = Math.min(...nagels.map((p) => p.price ?? p.min!));
+const nagelMax = Math.max(...nagels.map((p) => p.price ?? p.max!));
+const laagste = Math.min(...allPrices.map((p) => p.price ?? p.min!));
+
+const faqs: FaqT[] = [
+  {
+    q: 'Wat kost een podoloog in Sint-Truiden?',
+    a: `Bij Podologie Sint-Truiden kost een biomechanisch onderzoek met ganganalyse ${euro(onderzoek)} voor volwassenen. Een podologische voetverzorging kost ${euro(priceOf('voetverzorging'))}. Behandelingen voor ingegroeide nagels kosten tussen € ${nagelMin} en € ${nagelMax}.`,
+  },
+  {
+    q: 'Wat kost een volledig traject met onderzoek en zolen?',
+    a: `Een volledig traject met biomechanisch onderzoek en podologische zolen kost bij Podologie Sint-Truiden € ${eersteTraject} voor volwassenen: ${euro(onderzoek)} voor het onderzoek en ${euro(zolen)} voor de zolen. De controle na zes weken is inbegrepen.`,
+  },
+  {
+    q: 'Betaalt het ziekenfonds de podoloog terug?',
+    a: 'De verplichte ziekteverzekering betaalt podologische zorg alleen terug voor mensen met diabetes, binnen het zorgtraject of de diabetesconventie, onder voorwaarden en op voorschrift. Voor podologische zolen geven veel ziekenfondsen wel een tussenkomst via hun aanvullende verzekering. Vraag het bedrag en de voorwaarden na bij je eigen ziekenfonds.',
+  },
+];
+
+const schema = [
+  service('/biomechanisch-onderzoek/', 'Biomechanisch onderzoek met ganganalyse', 'Biomechanisch onderzoek', 'Vraaggesprek, klinisch onderzoek, ganganalyse en 3D-scan.', ['onderzoek-volw', 'onderzoek-kind']),
+  service('/podologische-zolen/', 'Podologische zolen op maat', 'Podologische zolen', 'Zolen op maat met gratis controle na 6 weken.', ['zolen-volw', 'zolen-kind', 'zolen-tweede']),
+  service('/diabetische-voetzorg/', 'Diabetische voetzorg', 'Diabetesscreening en voetverzorging', 'Diabetesscreening en podologische voetverzorging.', ['diabetes', 'voetverzorging']),
+  service('/ingegroeide-teennagel/', 'Behandeling ingegroeide teennagel', 'Nagelbeugel, orthese en nagelreconstructie', 'Specialisatietechnieken voor nagels.', ['ross-fraser', 'fotopolymerisatie', 'orthese', 'gelacy', 'unguisan']),
+  faqPage(path, faqs),
+];
+---
+<Base path={path} crumbs={[{ name: 'Tarieven', path }]} schema={schema}>
+  <section class="section">
+    <div class="wrap prose">
+      <h1>Tarieven podoloog in Sint-Truiden</h1>
+      <p class="lead">De tarieven van Podologie Sint-Truiden gaan van € {laagste} voor een nagelbeugel tot {euro(zolen)} voor podologische zolen op maat. Een biomechanisch onderzoek kost {euro(onderzoek)}.</p>
+      <p>Alle bedragen zijn eindprijzen. Klik op een behandeling voor meer uitleg.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0">
+    <div class="wrap">
+      <PriceTable groups={prices} />
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap prose">
+      <h2>Terugbetaling</h2>
+      <p><strong>Diabetes.</strong> Binnen het zorgtraject diabetes of de diabetesconventie worden onder voorwaarden twee podologische consultaties per jaar terugbetaald door het RIZIV, op voorschrift van je arts. Meer daarover bij <a href="/diabetische-voetzorg/">diabetische voetzorg</a>.</p>
+      <p><strong>Podologische zolen.</strong> De verplichte ziekteverzekering betaalt zolen niet terug, maar veel ziekenfondsen geven een tussenkomst via de aanvullende verzekering. Het bedrag verschilt per ziekenfonds en soms is een voorschrift nodig. Vraag het vooraf na.</p>
+      <p><strong>Afspraak verhinderd?</strong> Laat het zo snel mogelijk weten via {site.phone} of via de online agenda, zodat iemand anders je plaats kan innemen.</p>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} title="Vragen over tarieven en terugbetaling" />
+  <Cta />
+</Base>

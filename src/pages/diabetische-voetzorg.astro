@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+import PriceTable from '../components/PriceTable.astro';
+import { priceOf, euro } from '../data/site';
+import { faqPage, service, type Faq as FaqT } from '../data/schema';
+import feet from '../assets/happy-feet.jpg';
+
+const path = '/diabetische-voetzorg/';
+const screening = priceOf('diabetes');
+const verzorging = priceOf('voetverzorging');
+
+const faqs: FaqT[] = [
+  {
+    q: 'Wordt diabetische voetzorg bij de podoloog terugbetaald?',
+    a: 'Ja, podologische zorg voor mensen met diabetes wordt onder voorwaarden tweemaal per jaar terugbetaald via het RIZIV, binnen het zorgtraject diabetes of de diabetesconventie. Je hebt daarvoor een voorschrift van je arts nodig. Je huisarts weet of je in aanmerking komt.',
+  },
+  {
+    q: 'Waarom zijn voeten bij diabetes extra kwetsbaar?',
+    a: 'Voeten zijn bij diabetes extra kwetsbaar omdat de aandoening op termijn het gevoel in de voeten en de doorbloeding kan verminderen. Een kleine wonde of drukplek wordt dan minder snel opgemerkt en geneest trager. Regelmatige controle vangt zulke problemen op voor ze ernstig worden.',
+  },
+  {
+    q: 'Hoe vaak moet ik met diabetes naar de podoloog?',
+    a: 'Hoe vaak je met diabetes naar de podoloog gaat, hangt af van het risico dat bij de screening wordt vastgesteld. De internationale richtlijn van de IWGDF (2023) raadt minstens een jaarlijkse voetscreening aan voor iedereen met diabetes, en vaker bij een hoger risico.',
+  },
+  {
+    q: 'Wat kost diabetesscreening bij de podoloog?',
+    a: `Een diabetesscreening kost bij Podologie Sint-Truiden ${euro(screening)}, net als een podologische voetverzorging. Binnen het zorgtraject diabetes of de diabetesconventie komt daar onder voorwaarden een terugbetaling van het RIZIV tegenover.`,
+  },
+];
+
+const schema = [
+  service(path, 'Diabetische voetzorg', 'Diabetesscreening en podologische voetverzorging', 'Erkende diabetesscreening en gespecialiseerde voetzorg binnen het zorgtraject diabetes of de diabetesconventie.', ['diabetes', 'voetverzorging']),
+  faqPage(path, faqs),
+];
+---
+<Base path={path} crumbs={[{ name: 'Diabetische voetzorg', path }]} schema={schema} ogImage={feet}>
+  <Hero image={feet} alt="Twee paar blote voeten die ontspannen in het zand rusten" eyebrow="Diabetes en voetzorg" compact>
+    <h1>Diabetische voetzorg in Sint-Truiden</h1>
+    <p>Diabetische voetzorg bij Podologie Sint-Truiden is erkende screening en gespecialiseerde voetverzorging binnen het zorgtraject diabetes of de diabetesconventie. Tweemaal per jaar terugbetaald via het RIZIV.</p>
+  </Hero>
+
+  <section class="section">
+    <div class="wrap prose">
+      <h2>Waarom voetzorg bij diabetes belangrijk is</h2>
+      <p>Diabetes kan op termijn het gevoel in je voeten en de doorbloeding verminderen. Een drukplek, een kloofje of een ingegroeide nagel voel je dan minder goed, terwijl het net trager geneest. Regelmatige controle door een podoloog vangt zulke problemen op voor ze ernstig worden.</p>
+      <p>De internationale werkgroep rond de diabetische voet (IWGDF) raadt in haar richtlijn van 2023 minstens een jaarlijkse voetscreening aan voor iedereen met diabetes, en vaker bij een verhoogd risico.</p>
+
+      <h2>Wat gebeurt er tijdens een diabetesscreening?</h2>
+      <p>Tijdens de screening bekijk ik de huid, de nagels en de stand van je voeten, controleer ik het gevoel in je voeten en kijk ik je schoenen na op drukpunten. Op basis daarvan bepalen we je risico en hoe vaak opvolging nodig is. Waar nodig volgt een podologische voetverzorging: eelt en likdoorns verwijderen en nagels verzorgen.</p>
+      <p>Zit het probleem in je stappatroon of drukverdeling, dan kunnen <a href="/podologische-zolen/">podologische zolen op maat</a> overbelaste plekken ontlasten.</p>
+
+      <h2>Terugbetaling via het RIZIV</h2>
+      <div class="note-box">
+        <p>Binnen het <strong>zorgtraject diabetes</strong> of de <strong>diabetesconventie</strong> worden onder voorwaarden twee podologische consultaties per jaar terugbetaald door het RIZIV. Je hebt daarvoor een voorschrift van je arts nodig: neem dat mee naar je eerste afspraak. Je huisarts weet of je in aanmerking komt.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <h2>Tarieven diabetische voetzorg</h2>
+      <PriceTable groups={[{ title: 'Voetzorg', items: [screening, verzorging] }]} links={false} />
+      <p class="prose">Alle tarieven op een rij vind je op de pagina <a href="/tarieven/">tarieven en terugbetaling</a>.</p>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} title="Vragen over diabetische voetzorg" />
+  <Cta title="Een diabetesscreening plannen?" text="Maak online een afspraak en breng het voorschrift van je arts mee, zodat de terugbetaling in orde komt." />
+</Base>

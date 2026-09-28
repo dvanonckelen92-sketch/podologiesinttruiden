@@ -1,0 +1,95 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+import PriceTable from '../components/PriceTable.astro';
+import { priceOf, euro } from '../data/site';
+import { faqPage, service, type Faq as FaqT } from '../data/schema';
+import insoles from '../assets/iStock-insoles.jpg';
+import back from '../assets/image-6.jpg';
+
+const path = '/podologische-zolen/';
+const volw = priceOf('zolen-volw');
+const kind = priceOf('zolen-kind');
+const tweede = priceOf('zolen-tweede');
+const onderzoek = priceOf('onderzoek-volw');
+
+const faqs: FaqT[] = [
+  {
+    q: 'Wat kosten podologische zolen in Sint-Truiden?',
+    a: `Podologische zolen kosten bij Podologie Sint-Truiden ${euro(volw)} voor volwassenen en ${euro(kind)} voor kinderen tot en met 16 jaar. Een tweede identiek paar, besteld binnen het jaar, kost ${euro(tweede)}. De controle na zes weken is inbegrepen.`,
+  },
+  {
+    q: 'Wat is het verschil tussen podologische zolen en steunzolen uit de winkel?',
+    a: 'Podologische zolen worden gemaakt op basis van een onderzoek en een 3D-scan van jouw voeten, en corrigeren wat bij jou afwijkt. Steunzolen uit de winkel hebben een standaardvorm die voor een gemiddelde voet bedoeld is. Ze kunnen comfort geven, maar ze pakken geen specifieke oorzaak aan.',
+  },
+  {
+    q: 'Moet ik eerst een onderzoek laten doen voor podologische zolen?',
+    a: `Ja, podologische zolen worden altijd gemaakt na een biomechanisch onderzoek met ganganalyse. Dat onderzoek kost ${euro(onderzoek)} voor volwassenen en bepaalt of zolen echt nodig zijn, en zo ja, wat ze moeten corrigeren.`,
+  },
+  {
+    q: 'Worden podologische zolen terugbetaald?',
+    a: 'Podologische zolen worden niet terugbetaald door de verplichte ziekteverzekering, maar veel ziekenfondsen geven een tussenkomst via hun aanvullende verzekering. Het bedrag en de voorwaarden verschillen per ziekenfonds. Vraag vooraf na of je een voorschrift van je arts nodig hebt.',
+  },
+  {
+    q: 'Hoe lang gaan podologische zolen mee?',
+    a: 'Hoe lang podologische zolen meegaan hangt af van hoeveel je ze draagt, je gewicht en je sport. Bij kinderen bepaalt vooral de groei wanneer een nieuw paar nodig is. Tijdens een controle bekijk ik of je zolen nog doen wat ze moeten doen.',
+  },
+];
+
+const schema = [
+  service(path, 'Podologische zolen op maat', 'Podologische zolen', 'Podologische zolen op maat, gemaakt na biomechanisch onderzoek, ganganalyse en 3D-scan, met gratis controle na 6 weken.', ['zolen-volw', 'zolen-kind', 'zolen-tweede']),
+  faqPage(path, faqs),
+];
+---
+<Base path={path} crumbs={[{ name: 'Podologische zolen', path }]} schema={schema} ogImage={insoles}>
+  <Hero image={insoles} alt="Twee blauwe podologische zolen op maat naast een drukmeting van de voeten op een laptop" eyebrow="Zolen op maat" compact>
+    <h1>Podologische zolen op maat in Sint-Truiden</h1>
+    <p>Podologische zolen op maat maak ik pas na een grondig onderzoek van je voeten en je stappatroon. Zo corrigeren ze wat bij jou afwijkt, in plaats van een gemiddelde voet.</p>
+  </Hero>
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="prose">
+        <h2>Wanneer helpen podologische zolen?</h2>
+        <p>Podologische zolen helpen wanneer een klacht terug te voeren is op de stand van je voet of de manier waarop je afwikkelt. Dat kan pijn in de voet zelf zijn, maar ook in je knie, heup of onderrug. De oorzaak ligt vaak lager dan waar je het voelt.</p>
+        <p>Veelvoorkomende redenen om met zolen te starten:</p>
+        <ul>
+          <li>pijn onder de hiel of in de voetboog</li>
+          <li>pijn onder de voorvoet of drukplekken met eelt</li>
+          <li>knie- of rugklachten die samenhangen met je stappatroon</li>
+          <li>blessures die terugkomen bij het lopen of sporten</li>
+          <li>platvoeten of holvoeten die klachten geven</li>
+        </ul>
+        <p>Niet elke klacht vraagt zolen. Soms volstaan ander schoeisel of gerichte oefeningen, en dan zeg ik dat ook.</p>
+      </div>
+      <Image src={back} alt="Vrouw in een woonkamer die met een pijnlijk gezicht haar onderrug vasthoudt" widths={[400, 700, 1000]} sizes="(min-width: 860px) 45vw, 100vw" />
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <h2>Van onderzoek tot zolen: zo verloopt het</h2>
+      <ol class="steps">
+        <li><h3>Onderzoek en ganganalyse</h3><p>Eerst volgt een <a href="/biomechanisch-onderzoek/">biomechanisch onderzoek</a> met vraaggesprek, klinisch onderzoek en ganganalyse op de loopband.</p></li>
+        <li><h3>3D-scan van je voeten</h3><p>Een 3D-scan legt de exacte vorm van je voeten vast. Dat is de basis voor het ontwerp van je zolen.</p></li>
+        <li><h3>Levering en uitleg</h3><p>Je krijgt je zolen met uitleg over het inlopen en over welke schoenen er het best bij passen.</p></li>
+        <li><h3>Gratis controle na 6 weken</h3><p>Na zes weken bekijken we samen hoe het gaat. Aanpassingen die dan nodig zijn, zijn inbegrepen.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Wat kosten podologische zolen?</h2>
+      <p class="prose">Het onderzoek en de zolen worden apart aangerekend. Kinderen tot en met 16 jaar betalen een lager tarief; meer daarover op de pagina <a href="/podoloog-kinderen/">podoloog voor kinderen</a>.</p>
+      <PriceTable groups={[{ title: 'Zolen en onderzoek', items: [onderzoek, volw, kind, tweede] }]} links={false} />
+      <p class="prose">Alle andere prijzen en informatie over terugbetaling vind je bij de <a href="/tarieven/">tarieven</a>.</p>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} title="Vragen over podologische zolen" />
+  <Cta title="Podologische zolen laten maken?" text="Plan eerst een biomechanisch onderzoek. Daarna weet je of zolen voor jou de juiste oplossing zijn." />
+</Base>

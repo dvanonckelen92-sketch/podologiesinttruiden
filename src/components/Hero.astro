@@ -1,0 +1,18 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { site } from '../data/site';
+interface Props { image: ImageMetadata; alt: string; eyebrow?: string; compact?: boolean; position?: string }
+const { image, alt, eyebrow, compact = false, position = 'center' } = Astro.props;
+---
+<section class:list={['hero', { compact }]}>
+  <Image src={image} alt={alt} widths={[640, 1024, 1600, 2000]} sizes="100vw" loading="eager" fetchpriority="high" class="hero-img" style={`object-position:${position}`} />
+  <div class="hero-inner wrap">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <slot />
+    <p class="hero-actions">
+      <a class="btn btn-accent" href={site.bookingUrl} rel="noopener">Afspraak maken</a>
+      <a class="btn btn-light" href="/tarieven/">Bekijk de tarieven</a>
+    </p>
+  </div>
+</section>

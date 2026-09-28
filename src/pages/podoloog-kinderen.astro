@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+import PriceTable from '../components/PriceTable.astro';
+import { priceOf, euro } from '../data/site';
+import { faqPage, service, type Faq as FaqT } from '../data/schema';
+import kid from '../assets/walking-the-kid.jpg';
+
+const path = '/podoloog-kinderen/';
+const onderzoek = priceOf('onderzoek-kind');
+const zolen = priceOf('zolen-kind');
+
+const faqs: FaqT[] = [
+  {
+    q: 'Vanaf welke leeftijd kan mijn kind naar de podoloog?',
+    a: 'Bij Podologie Sint-Truiden kan je kind vanaf vier jaar terecht voor een biomechanisch onderzoek. Jonger kan in sommige gevallen ook, maar dan is overleg met de huisarts of kinderarts meestal de eerste stap.',
+  },
+  {
+    q: 'Wanneer moet mijn kind naar de podoloog?',
+    a: 'Een kind hoort bij de podoloog als het opvallend vaak struikelt, snel klaagt over vermoeide voeten of pijn na school of sport, of als je iets vreemds ziet aan de manier van stappen. Ook schoenen die aan één kant veel sneller verslijten zijn een signaal.',
+  },
+  {
+    q: 'Wat kost een podoloog voor kinderen?',
+    a: `Een biomechanisch onderzoek voor kinderen tot en met 16 jaar kost bij Podologie Sint-Truiden ${euro(onderzoek)}. Podologische zolen voor kinderen kosten ${euro(zolen)}, met een gratis controle na zes weken.`,
+  },
+  {
+    q: 'Zijn platvoeten bij kinderen normaal?',
+    a: 'Platvoeten zijn bij jonge kinderen vaak normaal, omdat de voetboog zich pas in de loop van de kindertijd ontwikkelt. Een onderzoek is wel zinvol als je kind er pijn of vermoeidheid van heeft, of als de platvoet aan één kant veel sterker is dan aan de andere.',
+  },
+];
+
+const schema = [
+  service(path, 'Kinderpodologie', 'Podologisch onderzoek en zolen voor kinderen', 'Biomechanisch onderzoek en podologische zolen voor kinderen vanaf 4 jaar tot en met 16 jaar.', ['onderzoek-kind', 'zolen-kind']),
+  faqPage(path, faqs),
+];
+---
+<Base path={path} crumbs={[{ name: 'Podoloog voor kinderen', path }]} schema={schema} ogImage={kid}>
+  <Hero image={kid} alt="Moeder en jong kind die hand in hand over een herfstig parkpad wandelen" eyebrow="Kinderpodologie" compact position="center 60%">
+    <h1>Podoloog voor kinderen in Sint-Truiden</h1>
+    <p>Als podoloog voor kinderen onderzoek ik voeten en stappatroon vanaf vier jaar. Vroeg ingrijpen voorkomt vaak grotere klachten op latere leeftijd.</p>
+  </Hero>
+
+  <section class="section">
+    <div class="wrap prose">
+      <h2>Herken je dit bij je kind?</h2>
+      <p>Kinderen zeggen zelden dat hun voeten pijn doen. Ze willen niet meer mee wandelen, zitten liever, of vallen vaker dan leeftijdsgenootjes. Signalen om een onderzoek te overwegen:</p>
+      <ul>
+        <li>je kind struikelt of valt opvallend vaak</li>
+        <li>het klaagt over vermoeide voeten of beenpijn na een schooldag of sporttraining</li>
+        <li>het stapt op de tenen, met de voeten naar binnen of naar buiten gedraaid</li>
+        <li>schoenen verslijten aan één kant veel sneller</li>
+        <li>pijn in de hiel bij kinderen die veel sporten</li>
+      </ul>
+      <p>Een onderzoek betekent niet automatisch zolen. Vaak volstaat uitleg, schoenadvies of een paar oefeningen, en dan hoor je dat ook.</p>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap prose">
+      <h2>Hoe verloopt een onderzoek bij kinderen?</h2>
+      <p>Het onderzoek voor kinderen volgt dezelfde stappen als het <a href="/biomechanisch-onderzoek/">biomechanisch onderzoek voor volwassenen</a>: een gesprek, een klinisch onderzoek, een ganganalyse en een 3D-scan. Ik neem er de tijd voor, zodat je kind zich op zijn gemak voelt. Als ouder ben je er de hele tijd bij.</p>
+      <p>Zijn zolen nodig, dan groeien die niet mee. Bij kinderen bepaalt vooral de groei wanneer een nieuw paar nodig is, en dat bekijken we bij elke controle.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Tarieven voor kinderen</h2>
+      <PriceTable groups={[{ title: 'Kinderen tot en met 16 jaar', items: [onderzoek, zolen] }]} links={false} />
+      <p class="prose">Meer over zolen lees je bij <a href="/podologische-zolen/">podologische zolen op maat</a>.</p>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} title="Vragen over kinderpodologie" />
+  <Cta title="Een afspraak voor je kind maken?" />
+</Base>

@@ -1,0 +1,87 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+import { priceOf, euro } from '../data/site';
+import { faqPage, service, type Faq as FaqT } from '../data/schema';
+import runner from '../assets/image-4.jpg';
+import back from '../assets/image-6.jpg';
+
+const path = '/biomechanisch-onderzoek/';
+const volw = priceOf('onderzoek-volw');
+const kind = priceOf('onderzoek-kind');
+
+const faqs: FaqT[] = [
+  {
+    q: 'Wat is een biomechanisch onderzoek bij de podoloog?',
+    a: 'Een biomechanisch onderzoek is een analyse van hoe je voeten, benen en bekken samenwerken tijdens het staan en stappen. De podoloog combineert een vraaggesprek, een klinisch onderzoek, een ganganalyse en een 3D-scan om de oorzaak van een klacht te vinden.',
+  },
+  {
+    q: 'Wat kost een biomechanisch onderzoek?',
+    a: `Een biomechanisch onderzoek met ganganalyse kost bij Podologie Sint-Truiden ${euro(volw)} voor volwassenen en ${euro(kind)} voor kinderen tot en met 16 jaar. Eventuele zolen worden apart aangerekend.`,
+  },
+  {
+    q: 'Wat is een ganganalyse?',
+    a: 'Een ganganalyse is het in kaart brengen van je stappatroon terwijl je beweegt. Bij Podologie Sint-Truiden gebeurt dat op de loopband, zodat de podoloog ziet hoe je voeten landen, afwikkelen en afzetten.',
+  },
+  {
+    q: 'Wat neem ik mee naar een biomechanisch onderzoek?',
+    a: 'Neem naar een biomechanisch onderzoek de schoenen mee die je het meest draagt, en je sportschoenen als je klachten hebt tijdens het sporten. Heb je verslagen of beeldvorming van een arts of kinesist, breng die dan ook mee. Een korte broek maakt het onderzoek van je knieën en benen makkelijker.',
+  },
+];
+
+const schema = [
+  service(path, 'Biomechanisch onderzoek met ganganalyse', 'Biomechanisch onderzoek', 'Vraaggesprek, klinisch onderzoek, ganganalyse op de loopband en 3D-scan van de voeten.', ['onderzoek-volw', 'onderzoek-kind']),
+  faqPage(path, faqs),
+];
+---
+<Base path={path} crumbs={[{ name: 'Biomechanisch onderzoek', path }]} schema={schema} ogImage={runner}>
+  <Hero image={runner} alt="Loper in tegenlicht op een atletiekpiste, midden in de pas" eyebrow="Onderzoek en ganganalyse" compact position="center 40%">
+    <h1>Biomechanisch onderzoek en ganganalyse</h1>
+    <p>Een biomechanisch onderzoek brengt in kaart hoe je voeten werken, in rust en in beweging. Het is het vertrekpunt voor elke behandeling bij Podologie Sint-Truiden: eerst de oorzaak, dan pas de oplossing.</p>
+  </Hero>
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="prose">
+        <h2>Waarom de oorzaak vaak lager ligt</h2>
+        <p>Een afwijkende voetstand of een onevenwichtig stappatroon kan zich laten voelen tot in je knie, heup of rug. Wie alleen de plek behandelt waar het pijn doet, mist dan de bron. Een biomechanisch onderzoek volgt de keten van onderuit.</p>
+        <p>Het onderzoek is zinvol bij:</p>
+        <ul>
+          <li>voetpijn, zoals pijn onder de hiel, in de voetboog of onder de voorvoet</li>
+          <li>knie-, heup- of rugklachten zonder duidelijke oorzaak</li>
+          <li>blessures die terugkomen bij lopen of andere sporten</li>
+          <li>twijfel over welke schoen bij jouw voet past</li>
+        </ul>
+      </div>
+      <Image src={back} alt="Vrouw in een woonkamer die met een pijnlijk gezicht haar onderrug vasthoudt" widths={[400, 700, 1000]} sizes="(min-width: 860px) 45vw, 100vw" />
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <h2>Wat gebeurt er tijdens het onderzoek?</h2>
+      <ol class="steps">
+        <li><h3>Vraaggesprek</h3><p>Wanneer begon de klacht, wanneer is ze erger, wat doe je voor werk en sport, welke schoenen draag je? Context bepaalt vaak de oorzaak.</p></li>
+        <li><h3>Klinisch onderzoek</h3><p>Je voetstand, de beweeglijkheid van je gewrichten en eventuele drukpunten.</p></li>
+        <li><h3>Ganganalyse op de loopband</h3><p>Hoe je voeten landen, afwikkelen en afzetten terwijl je stapt of loopt.</p></li>
+        <li><h3>3D-scan en advies</h3><p>Een 3D-scan van je voeten, gevolgd door een behandelplan dat past bij jouw lichaam en levensstijl.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap prose">
+      <h2>Wat gebeurt er na het onderzoek?</h2>
+      <p>Na het onderzoek krijg je uitleg over wat ik gezien heb en wat ik aanraad. Dat kan schoenadvies zijn, oefeningen, of <a href="/podologische-zolen/">podologische zolen op maat</a>. Zolen maak ik alleen als ze echt iets toevoegen.</p>
+      <div class="note-box">
+        <p><strong>Tarief:</strong> {euro(volw)} voor volwassenen, {euro(kind)} voor kinderen tot en met 16 jaar. Bij kinderen is een onderzoek mogelijk vanaf vier jaar, zie <a href="/podoloog-kinderen/">podoloog voor kinderen</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} title="Vragen over het biomechanisch onderzoek" />
+  <Cta />
+</Base>

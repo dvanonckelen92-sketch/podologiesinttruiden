@@ -1,0 +1,14 @@
+---
+import type { Faq } from '../data/schema';
+interface Props { faqs: Faq[]; title?: string }
+const { faqs, title = 'Veelgestelde vragen' } = Astro.props;
+---
+<section class="faq wrap" aria-labelledby="faq-titel">
+  <h2 id="faq-titel">{title}</h2>
+  {faqs.map((f) => (
+    <div class="faq-item">
+      <h3>{f.q}</h3>
+      <p>{f.a}</p>
+    </div>
+  ))}
+</section>

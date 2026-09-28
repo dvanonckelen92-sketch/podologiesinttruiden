@@ -1,0 +1,18 @@
+---
+import { site } from '../data/site';
+interface Props { title?: string; text?: string }
+const {
+  title = 'Klaar om je voeten te laten onderzoeken?',
+  text = 'Maak online een afspraak op een moment dat jou past, of bel de praktijk op werkdagen tussen 9u en 16u.',
+} = Astro.props;
+---
+<section class="cta">
+  <div class="wrap">
+    <h2>{title}</h2>
+    <p>{text}</p>
+    <p class="cta-actions">
+      <a class="btn btn-accent" href={site.bookingUrl} rel="noopener">Online afspraak maken</a>
+      <a class="btn btn-ghost" href={`tel:${site.phoneIntl}`}>Bel {site.phone}</a>
+    </p>
+  </div>
+</section>

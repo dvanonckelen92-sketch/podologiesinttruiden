@@ -1,0 +1,79 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+import PriceTable from '../components/PriceTable.astro';
+import { prices, priceOf, euro } from '../data/site';
+import { faqPage, service, type Faq as FaqT } from '../data/schema';
+import feet from '../assets/happy-feet.jpg';
+
+const path = '/ingegroeide-teennagel/';
+const nagelGroep = prices.find((g) => g.title.startsWith('Specialisatie'))!;
+const ross = priceOf('ross-fraser');
+const foto = priceOf('fotopolymerisatie');
+const orthese = priceOf('orthese');
+
+const faqs: FaqT[] = [
+  {
+    q: 'Hoe behandelt een podoloog een ingegroeide teennagel?',
+    a: 'Een podoloog behandelt een ingegroeide teennagel meestal met een nagelbeugel die de nagel geleidelijk rechttrekt, zonder operatie. Bij Podologie Sint-Truiden gebeurt dat met een Ross Fraser beugel of een fotopolymerisatie beugel, eventueel aangevuld met een orthese of een nagelreconstructie.',
+  },
+  {
+    q: 'Wat kost de behandeling van een ingegroeide teennagel?',
+    a: `Een Ross Fraser nagelbeugel kost bij Podologie Sint-Truiden ${euro(ross)} en een fotopolymerisatie beugel ${euro(foto)}. Een orthese kost ${euro(orthese)}, afhankelijk van de grootte. Een podologische voetverzorging wordt apart aangerekend.`,
+  },
+  {
+    q: 'Wanneer ga ik met een ingegroeide teennagel naar de huisarts?',
+    a: 'Met een ingegroeide teennagel ga je naar de huisarts als de teen sterk ontstoken is, etter bevat, of als de roodheid zich uitbreidt. Heb je diabetes of een verminderde doorbloeding, neem dan altijd snel contact op met je arts. Na de ontsteking kan de podoloog verder helpen om herval te voorkomen.',
+  },
+  {
+    q: 'Wat is een nagelreconstructie?',
+    a: 'Een nagelreconstructie is het opbouwen van een beschadigd of ontbrekend stuk nagel met een kunststof, zoals Gelacy of Unguisan. Zo is de nagel beter beschermd en kan hij in de juiste richting uitgroeien.',
+  },
+];
+
+const schema = [
+  service(path, 'Behandeling ingegroeide teennagel', 'Nagelbeugel, orthese en nagelreconstructie', 'Behandeling van ingegroeide en afwijkende teennagels zonder operatie met Ross Fraser beugel, fotopolymerisatie beugel, orthese en nagelreconstructie.', ['ross-fraser', 'fotopolymerisatie', 'orthese', 'gelacy', 'unguisan']),
+  faqPage(path, faqs),
+];
+---
+<Base path={path} crumbs={[{ name: 'Ingegroeide teennagel', path }]} schema={schema} ogImage={feet}>
+  <Hero image={feet} alt="Twee paar blote voeten die ontspannen in het zand rusten" eyebrow="Specialistische nageltechnieken" compact>
+    <h1>Ingegroeide teennagel behandelen zonder operatie</h1>
+    <p>Een ingegroeide teennagel behandel ik met een nagelbeugel, een orthese op maat of een nagelreconstructie. Het doel: de pijn weg, en de nagel opnieuw in de juiste richting laten groeien.</p>
+  </Hero>
+
+  <section class="section">
+    <div class="wrap prose">
+      <h2>Welke behandelingen zijn er?</h2>
+
+      <h3>Ross Fraser nagelbeugel</h3>
+      <p>Een Ross Fraser beugel is een dun draadje op maat dat over de nagel geplaatst wordt en de randen voorzichtig optilt. Zo groeit de nagel stap voor stap uit de huid. De beugel wordt regelmatig bijgesteld. Tarief: {euro(ross)}.</p>
+
+      <h3>Fotopolymerisatie beugel</h3>
+      <p>Bij een fotopolymerisatie beugel wordt een correctie op de nagel gekleefd en uitgehard met licht. Hij is dun, onopvallend en je kan er gewoon schoenen mee dragen. Tarief: {euro(foto)}.</p>
+
+      <h3>Orthese op maat</h3>
+      <p>Een orthese is een klein teenstukje op maat dat de stand van een teen corrigeert of een drukplek ontlast, bijvoorbeeld bij hamertenen. Tarief: {euro(orthese)}, afhankelijk van de grootte.</p>
+
+      <h3>Nagelreconstructie</h3>
+      <p>Is een nagel beschadigd of deels verdwenen, dan kan ik hem opbouwen met Gelacy of Unguisan. De nagel is dan beter beschermd en groeit correct uit.</p>
+
+      <div class="note-box">
+        <p><strong>Ontstoken teen?</strong> Is je teen sterk ontstoken, zit er etter in of breidt de roodheid zich uit, ga dan eerst naar je huisarts. Heb je diabetes, neem dan altijd snel contact op. Meer over <a href="/diabetische-voetzorg/">diabetische voetzorg</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <h2>Tarieven nagelbehandelingen</h2>
+      <PriceTable groups={[nagelGroep]} links={false} />
+      <p class="prose">Deze technieken worden meestal gecombineerd met een podologische voetverzorging. Alle prijzen staan bij de <a href="/tarieven/">tarieven</a>.</p>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} title="Vragen over ingegroeide teennagels" />
+  <Cta title="Last van een ingegroeide teennagel?" />
+</Base>

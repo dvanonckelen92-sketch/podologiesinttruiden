@@ -1,0 +1,158 @@
+---
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+import { getImage, Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { site, nav, pageMeta } from '../data/site';
+import { baseGraph, webPage, breadcrumbs, type Crumb } from '../data/schema';
+import logo from '../assets/logoPodologieStTruiden.png';
+import defaultOg from '../assets/iStock-insoles.jpg';
+
+interface Props {
+  path: string;
+  /** Kruimelpad zonder Home. Leeg op de homepage. */
+  crumbs?: Crumb[];
+  /** Extra JSON-LD-nodes voor deze pagina (Service, FAQPage, ...). */
+  schema?: object[];
+  ogImage?: ImageMetadata;
+  pageType?: string;
+  noindex?: boolean;
+}
+
+const { path, crumbs = [], schema = [], ogImage = defaultOg, pageType = 'WebPage', noindex = false } = Astro.props;
+const meta = pageMeta(path);
+const title = meta.fullTitle ?? `${meta.seoTitle} | ${site.name}`;
+const canonical = new URL(path, site.url).href;
+
+const og = await getImage({ src: ogImage, width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 80 });
+const ogUrl = new URL(og.src, site.url).href;
+const logoPng = await getImage({ src: logo, width: 512, format: 'png' });
+const logoUrl = new URL(logoPng.src, site.url).href;
+
+const graph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    ...baseGraph(logoUrl, ogUrl),
+    webPage(meta, title, ogUrl, pageType),
+    ...(crumbs.length ? [breadcrumbs(path, crumbs)] : []),
+    ...schema,
+  ],
+};
+
+const isCurrent = (p: string) => (p === path ? 'page' : undefined);
+const year = new Date().getFullYear();
+---
+<!doctype html>
+<html lang="nl-BE">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={meta.description} />
+    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex, follow" /> : <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />}
+    <meta name="theme-color" content="#2b5544" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
+
+    <meta name="geo.region" content="BE-VLI" />
+    <meta name="geo.placename" content={site.address.locality} />
+    <meta name="geo.position" content={`${site.geo.lat};${site.geo.lng}`} />
+    <meta name="ICBM" content={`${site.geo.lat}, ${site.geo.lng}`} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="nl_BE" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(graph)} />
+  </head>
+  <body>
+    <a class="skip" href="#inhoud">Spring naar de inhoud</a>
+    <header class="site-header">
+      <div class="bar">
+        <a href="/" class="brand" aria-label={`${site.name}, naar de homepage`}>
+          <Image src={logo} alt={`Logo ${site.name}`} width={56} height={58} loading="eager" />
+          <span>Podologie<br />Sint-Truiden</span>
+        </a>
+        <nav aria-label="Hoofdmenu" class="nav-desktop">
+          <ul>
+            {nav.map((p) => <li><a href={p.path} aria-current={isCurrent(p.path)}>{p.navLabel}</a></li>)}
+          </ul>
+        </nav>
+        <a class="btn btn-accent book" href={site.bookingUrl} rel="noopener">Afspraak maken</a>
+        <details class="nav-mobile">
+          <summary aria-label="Menu openen">Menu</summary>
+          <nav aria-label="Menu mobiel">
+            <ul>
+              <li><a href="/" aria-current={isCurrent('/')}>Home</a></li>
+              {nav.map((p) => <li><a href={p.path} aria-current={isCurrent(p.path)}>{p.navLabel}</a></li>)}
+              <li><a href={site.bookingUrl} rel="noopener">Afspraak maken</a></li>
+            </ul>
+          </nav>
+        </details>
+      </div>
+    </header>
+
+    {crumbs.length > 0 && (
+      <nav aria-label="Kruimelpad" class="crumbs wrap">
+        <ol>
+          <li><a href="/">Home</a></li>
+          {crumbs.map((c, i) => (
+            <li>{i === crumbs.length - 1 ? <span aria-current="page">{c.name}</span> : <a href={c.path}>{c.name}</a>}</li>
+          ))}
+        </ol>
+      </nav>
+    )}
+
+    <main id="inhoud">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div>
+          <p class="footer-title">{site.name}</p>
+          <p>
+            {site.practitioner}, podoloog<br />
+            {site.address.street}<br />
+            {site.address.postalCode} {site.address.locality}
+          </p>
+          <p>
+            <a href={`tel:${site.phoneIntl}`}>{site.phone}</a><br />
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+          </p>
+          <p class="small">Telefonisch bereikbaar {site.phoneHours.days} van 9u tot 16u.<br />RIZIV-nummer {site.riziv}</p>
+        </div>
+        <div>
+          <p class="footer-title">Behandelingen</p>
+          <ul>
+            <li><a href="/podologische-zolen/">Podologische zolen</a></li>
+            <li><a href="/biomechanisch-onderzoek/">Biomechanisch onderzoek</a></li>
+            <li><a href="/podoloog-kinderen/">Kinderpodologie</a></li>
+            <li><a href="/diabetische-voetzorg/">Diabetische voetzorg</a></li>
+            <li><a href="/ingegroeide-teennagel/">Ingegroeide teennagel</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-title">Praktisch</p>
+          <ul>
+            <li><a href="/voor-wie/">Voor wie</a></li>
+            <li><a href="/tarieven/">Tarieven en terugbetaling</a></li>
+            <li><a href="/contact/">Contact en route</a></li>
+            <li><a href={site.bookingUrl} rel="noopener">Online afspraak maken</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="wrap copyright">© {year} {site.name}</p>
+    </footer>
+  </body>
+</html>

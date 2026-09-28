@@ -1,0 +1,91 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+import { faqPage, type Faq as FaqT } from '../data/schema';
+import runner from '../assets/image-4.jpg';
+import back from '../assets/image-6.jpg';
+import kid from '../assets/walking-the-kid.jpg';
+import feet from '../assets/happy-feet.jpg';
+
+const path = '/voor-wie/';
+
+const groups = [
+  {
+    title: 'Bij voet-, knie- of rugklachten',
+    img: back,
+    alt: 'Vrouw in een woonkamer die met een pijnlijk gezicht haar onderrug vasthoudt',
+    text: 'De oorzaak van je pijn ligt vaak lager dan waar je het voelt. Een afwijkende voetstand of een onevenwichtig stappatroon kan zich tot in je rug laten gelden, en dat is precies wat een biomechanisch onderzoek in kaart brengt.',
+    href: '/biomechanisch-onderzoek/',
+    link: 'Meer over het biomechanisch onderzoek',
+  },
+  {
+    title: 'Voor schoenadvies en sporters',
+    img: runner,
+    alt: 'Loper in tegenlicht op een atletiekpiste, midden in de pas',
+    text: 'Twijfel je welke schoen past bij jouw voet, je werk of je sport? Tijdens een onderzoek krijg je gericht advies op basis van je voettype en je stappatroon, zodat je beter kan kiezen en klachten vaak voorkomt.',
+    href: '/podologische-zolen/',
+    link: 'Meer over podologische zolen',
+  },
+  {
+    title: 'Kinderen',
+    img: kid,
+    alt: 'Moeder en jong kind die hand in hand over een herfstig parkpad wandelen',
+    text: 'Struikelt je kind opvallend vaak, of klaagt het over vermoeide voeten na een dag school of sport? Een onderzoek is mogelijk vanaf vier jaar, en vroeg ingrijpen voorkomt vaak grotere klachten op latere leeftijd.',
+    href: '/podoloog-kinderen/',
+    link: 'Meer over de podoloog voor kinderen',
+  },
+  {
+    title: 'Mensen met diabetes',
+    img: feet,
+    alt: 'Twee paar blote voeten die ontspannen in het zand rusten',
+    text: 'Erkende screening en gespecialiseerde voetzorg binnen het zorgtraject diabetes of de diabetesconventie. Tweemaal per jaar terugbetaald via het RIZIV, onder voorwaarden en op voorschrift van je arts.',
+    href: '/diabetische-voetzorg/',
+    link: 'Meer over diabetische voetzorg',
+  },
+];
+
+const faqs: FaqT[] = [
+  {
+    q: 'Wanneer ga je naar een podoloog?',
+    a: 'Je gaat naar een podoloog bij pijn of vermoeidheid in je voeten, bij knie-, heup- of rugklachten die met je stappatroon kunnen samenhangen, of bij terugkerende sportblessures. Ook voor kinderen die vaak struikelen, voor mensen met diabetes en bij ingegroeide teennagels is de podoloog de juiste plek.',
+  },
+  {
+    q: 'Wat is het verschil tussen een podoloog en een pedicure?',
+    a: 'Een podoloog is een erkend paramedisch zorgverlener die klachten van de voet en het stappatroon onderzoekt en behandelt, onder meer met podologische zolen. Een pedicure verzorgt huid en nagels van de voet, maar stelt geen diagnose van het stappatroon en maakt geen zolen op maat.',
+  },
+];
+---
+<Base path={path} crumbs={[{ name: 'Voor wie', path }]} schema={[faqPage(path, faqs)]}>
+  <section class="section">
+    <div class="wrap prose">
+      <h1>Voor wie is een podoloog?</h1>
+      <p class="lead">Een podoloog is er voor iedereen bij wie de voeten of het stappatroon klachten geven, van kinderen vanaf vier jaar tot sporters en mensen met diabetes. Misschien herken je jezelf hierin.</p>
+      <p>Voeten lijken simpel, tot ze pijn doen. Hieronder staan de situaties waarin mensen het vaakst bij <a href="/">Podologie Sint-Truiden</a> terechtkomen.</p>
+    </div>
+  </section>
+
+  {groups.map((g, i) => (
+    <section class:list={['section', { alt: i % 2 === 0 }]}>
+      <div class:list={['wrap', 'split', { reverse: i % 2 === 1 }]}>
+        <div class="prose">
+          <h2>{g.title}</h2>
+          <p>{g.text}</p>
+          <p><a href={g.href}>{g.link}</a></p>
+        </div>
+        <Image src={g.img} alt={g.alt} widths={[400, 700, 1000]} sizes="(min-width: 860px) 45vw, 100vw" style="aspect-ratio: 3/2" />
+      </div>
+    </section>
+  ))}
+
+  <section class="section">
+    <div class="wrap prose">
+      <h2>Last van een ingegroeide teennagel?</h2>
+      <p>Ook voor pijnlijke of afwijkende nagels kan je bij de podoloog terecht. Met een nagelbeugel of een nagelreconstructie is een operatie vaak niet nodig. Lees meer over het <a href="/ingegroeide-teennagel/">behandelen van een ingegroeide teennagel</a>.</p>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} />
+  <Cta />
+</Base>

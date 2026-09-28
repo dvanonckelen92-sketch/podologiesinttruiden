@@ -1,0 +1,111 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Faq from '../components/Faq.astro';
+import Cta from '../components/Cta.astro';
+import { site, priceOf, euro, allPrices } from '../data/site';
+import { faqPage, type Faq as FaqT } from '../data/schema';
+import insoles from '../assets/iStock-insoles.jpg';
+import runner from '../assets/image-4.jpg';
+
+const onderzoek = priceOf('onderzoek-volw');
+const zolen = priceOf('zolen-volw');
+const voetzorg = priceOf('voetverzorging');
+const cheapest = Math.min(...allPrices.map((p) => p.price ?? p.min ?? Infinity));
+
+const services = [
+  { href: '/podologische-zolen/', title: 'Podologische zolen op maat', text: `Zolen die gemaakt worden op basis van jouw 3D-scan en ganganalyse, met een gratis controle na zes weken. ${euro(zolen)} voor volwassenen.` },
+  { href: '/biomechanisch-onderzoek/', title: 'Biomechanisch onderzoek', text: `Een volledige analyse van je voeten en je stappatroon op de loopband, om de oorzaak van je klacht te vinden. ${euro(onderzoek)}.` },
+  { href: '/podoloog-kinderen/', title: 'Podologie voor kinderen', text: 'Onderzoek vanaf vier jaar, voor kinderen die vaak struikelen of snel over vermoeide voeten klagen.' },
+  { href: '/diabetische-voetzorg/', title: 'Diabetische voetzorg', text: 'Erkende screening en voetverzorging binnen het zorgtraject of de diabetesconventie, tweemaal per jaar terugbetaald.' },
+  { href: '/ingegroeide-teennagel/', title: 'Ingegroeide teennagel', text: 'Nagelbeugels, orthesen en nagelreconstructie om een pijnlijke nagel te corrigeren zonder operatie.' },
+  { href: '/voor-wie/', title: 'Twijfel je of het iets voor jou is?', text: 'Lees voor welke klachten en in welke situaties een bezoek aan de podoloog zinvol is.' },
+];
+
+const faqs: FaqT[] = [
+  {
+    q: 'Wat doet een podoloog?',
+    a: 'Een podoloog onderzoekt en behandelt klachten aan je voeten en aan de manier waarop je stapt, ook als die klachten zich in je knieën, heupen of rug laten voelen. In België is podoloog een erkend paramedisch beroep met een eigen RIZIV-nummer. Bij Podologie Sint-Truiden gaat het vooral om podologische zolen, biomechanisch onderzoek en specialistische voetzorg.',
+  },
+  {
+    q: 'Wat kost een podoloog in Sint-Truiden?',
+    a: `Bij Podologie Sint-Truiden kost een biomechanisch onderzoek met ganganalyse ${euro(onderzoek)} voor volwassenen en een paar podologische zolen ${euro(zolen)}. Een podologische voetverzorging kost ${euro(voetzorg)}. Alle tarieven staan op de pagina tarieven.`,
+  },
+  {
+    q: 'Heb ik een voorschrift nodig om naar de podoloog te gaan?',
+    a: 'Nee, je kan zonder voorschrift bij de podoloog terecht. Voor terugbetaling kan een voorschrift wel nodig zijn: bij diabetische voetzorg binnen het zorgtraject altijd, en sommige ziekenfondsen vragen er ook een voor hun tussenkomst in podologische zolen.',
+  },
+  {
+    q: 'Hoe maak ik een afspraak bij Podologie Sint-Truiden?',
+    a: `Een afspraak bij Podologie Sint-Truiden maak je online via de agenda op deze site, op elk moment van de dag. Je kan ook bellen naar ${site.phone}, op werkdagen tussen 9u en 16u.`,
+  },
+  {
+    q: 'Waar is de praktijk van Podologie Sint-Truiden?',
+    a: `De praktijk van Podologie Sint-Truiden ligt op ${site.address.street} in ${site.address.postalCode} ${site.address.locality}, in de deelgemeente Bevingen. Je vindt er podoloog ${site.practitioner}.`,
+  },
+];
+---
+<Base path="/" schema={[faqPage('/', faqs)]}>
+  <Hero image={insoles} alt="Podoloog bespreekt podologische zolen op maat met een patiënt, met de drukmeting van de voeten op een laptop" eyebrow="Podologie Sint-Truiden · Sarah Thoelen">
+    <h1>Podoloog in Sint-Truiden: geen twee voeten lopen hetzelfde</h1>
+    <p>Als podoloog in Sint-Truiden onderzoek ik elke voet op maat. Ik ben gespecialiseerd in podologische zolen, biomechanisch onderzoek en specialistische voetzorg, in mijn praktijk in Bevingen.</p>
+  </Hero>
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="prose">
+        <h2>Bij elke klacht hoort een verhaal</h2>
+        <p class="lead">Daarom begint elk traject met een grondig gesprek over je klachten, je gewoontes, je sport en je werk.</p>
+        <p>Context bepaalt vaak de oorzaak. Pijn onder je hiel bij een loper vraagt een andere aanpak dan dezelfde pijn bij iemand die de hele dag op een betonvloer staat. Zonder dat verhaal vis ik in troebel water.</p>
+        <p>Pas als ik je voeten onderzocht heb, stel ik een behandelplan samen dat past bij jouw lichaam en levensstijl. Geen standaardrecept, en zeker geen confectiewerk. Soms is dat een paar <a href="/podologische-zolen/">podologische zolen op maat</a>, soms volstaat schoenadvies of een gerichte oefening.</p>
+      </div>
+      <Image src={runner} alt="Loper in tegenlicht op een atletiekpiste, midden in de pas" widths={[400, 700, 1000]} sizes="(min-width: 860px) 45vw, 100vw" style="aspect-ratio: 4/5" />
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <h2>Hoe verloopt een onderzoek bij de podoloog?</h2>
+      <p class="prose">Een eerste onderzoek bij Podologie Sint-Truiden bestaat uit vier delen. Samen geven ze een volledig beeld van hoe je voeten werken, in rust en in beweging. Meer uitleg vind je bij het <a href="/biomechanisch-onderzoek/">biomechanisch onderzoek met ganganalyse</a>.</p>
+      <ol class="steps">
+        <li><h3>Vraaggesprek</h3><p>Je klachten, je voorgeschiedenis, je schoenen, je sport en je werk.</p></li>
+        <li><h3>Klinisch onderzoek</h3><p>Je voetstand, de beweeglijkheid van je gewrichten en eventuele drukpunten of eeltplekken.</p></li>
+        <li><h3>Ganganalyse op de loopband</h3><p>Hoe je voeten afwikkelen terwijl je op de loopband stapt of loopt.</p></li>
+        <li><h3>3D-scan van je voeten</h3><p>Een exacte digitale afdruk die de basis vormt voor zolen op maat, als die nodig zijn.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Waarmee kan de podoloog je helpen?</h2>
+      <ul class="cards three">
+        {services.map((s) => (
+          <li class="card">
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+            <a class="more" href={s.href}>Meer over {s.title.toLowerCase()}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section cream">
+    <div class="wrap">
+      <h2>Podologie Sint-Truiden in het kort</h2>
+      <ul class="facts">
+        <li><strong>{euro(onderzoek)}</strong><span>biomechanisch onderzoek met ganganalyse</span></li>
+        <li><strong>{euro(zolen)}</strong><span>podologische zolen op maat, controle inbegrepen</span></li>
+        <li><strong>6 weken</strong><span>na levering een gratis controle met aanpassingen</span></li>
+        <li><strong>vanaf 4 jaar</strong><span>kinderen welkom voor onderzoek</span></li>
+        <li><strong>€ {cheapest}</strong><span>laagste tarief, voor een nagelbeugel of orthese</span></li>
+      </ul>
+      <p class="prose">Podologie Sint-Truiden is de praktijk van podoloog {site.practitioner} (RIZIV-nummer {site.riziv}). Alle prijzen en de mogelijkheden tot terugbetaling vind je op de pagina <a href="/tarieven/">tarieven podoloog</a>.</p>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} />
+  <Cta />
+</Base>

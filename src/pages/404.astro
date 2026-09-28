@@ -1,0 +1,29 @@
+---
+import { site } from '../data/site';
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+---
+<!doctype html>
+<html lang="nl-BE">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pagina niet gevonden | {site.name}</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+  </head>
+  <body>
+    <main class="section">
+      <div class="wrap prose">
+        <h1>Deze pagina bestaat niet (meer)</h1>
+        <p class="lead">De pagina die je zocht is verhuisd of verwijderd.</p>
+        <ul>
+          <li><a href="/">Naar de homepage</a></li>
+          <li><a href="/tarieven/">Tarieven</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href={site.bookingUrl} rel="noopener">Online afspraak maken</a></li>
+        </ul>
+      </div>
+    </main>
+  </body>
+</html>
