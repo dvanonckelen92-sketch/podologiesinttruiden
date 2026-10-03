@@ -36,6 +36,16 @@
   to = "/sitemap.xml"
   status = 301
 
+[[redirects]]
+  from = "/privacy/"
+  to = "/privacyverklaring/"
+  status = 301
+
+[[redirects]]
+  from = "/afspraak/"
+  to = "/contact/"
+  status = 301
+
 [[headers]]
   for = "/*"
   [headers.values]

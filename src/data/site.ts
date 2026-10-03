@@ -11,6 +11,8 @@ export const site = {
   practitioner: 'Sarah Thoelen',
   jobTitle: 'Podoloog',
   riziv: '5-71012-27-701',
+  // Ondernemingsnummer (KBO), eenmanszaak op naam van Sarah Thoelen.
+  kbo: '0835.812.178',
   phone: '0473 44 67 47',
   phoneIntl: '+32473446747',
   email: 'info@podologiesttruiden.be',
@@ -36,7 +38,7 @@ export type Price = {
   label: string;
   /** Vaste prijs in euro. */
   price?: number;
-  /** Prijsvork, alleen als de prijs echt afhangt van iets. */
+  /** Twee mogelijke prijzen ("€ 15 of € 25"), alleen als de prijs echt afhangt van iets. */
   min?: number;
   max?: number;
   note?: string;
@@ -85,7 +87,7 @@ export function priceOf(id: string): Price {
 
 export function euro(p: Price): string {
   if (p.price !== undefined) return `€ ${p.price}`;
-  return `€ ${p.min} tot € ${p.max}`;
+  return `€ ${p.min} of € ${p.max}`;
 }
 
 /**
@@ -192,6 +194,14 @@ export const pages: PageMeta[] = [
     navLabel: 'Contact',
     updated: '2026-09-28',
     priority: 0.7,
+  },
+  {
+    path: '/privacyverklaring/',
+    seoTitle: 'Privacyverklaring',
+    description:
+      'Hoe Podologie Sint-Truiden omgaat met je gegevens: welke gegevens in je patiëntendossier komen, hoe lang ze bewaard worden en welke rechten je hebt.',
+    updated: '2026-10-03',
+    priority: 0.2,
   },
 ];
 

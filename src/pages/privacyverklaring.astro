@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, pageMeta } from '../data/site';
+
+const path = '/privacyverklaring/';
+const a = site.address;
+const updated = new Date(pageMeta(path).updated).toLocaleDateString('nl-BE', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<Base path={path} crumbs={[{ name: 'Privacyverklaring', path }]}>
+  <section class="section">
+    <div class="wrap prose">
+      <h1>Privacyverklaring</h1>
+      <p class="lead">Als podoloog werk ik met gegevens over je gezondheid. Hier lees je welke gegevens Podologie Sint-Truiden bijhoudt, waarom, hoe lang, en welke rechten je hebt.</p>
+
+      <h2>Wie is verantwoordelijk?</h2>
+      <p>
+        {site.name}, {site.practitioner} (podoloog, RIZIV-nummer {site.riziv}, ondernemingsnummer {site.kbo})<br />
+        {a.street}, {a.postalCode} {a.locality}<br />
+        <a href={`mailto:${site.email}`}>{site.email}</a> · <a href={`tel:${site.phoneIntl}`}>{site.phone}</a>
+      </p>
+      <p>Voor elke vraag over je gegevens kan je op dit adres terecht.</p>
+
+      <h2>Welke gegevens houd ik bij?</h2>
+      <ul>
+        <li><strong>Identificatie- en contactgegevens:</strong> naam, adres, geboortedatum, telefoonnummer, e-mailadres en ziekenfonds.</li>
+        <li><strong>Gezondheidsgegevens:</strong> je klachten en voorgeschiedenis, de resultaten van het onderzoek, de ganganalyse en de 3D-scan van je voeten, en de behandeling die je krijgt.</li>
+        <li><strong>Gegevens van je arts:</strong> een voorschrift of verslag dat je zelf meebrengt of dat je arts bezorgt.</li>
+        <li><strong>Afspraak- en betaalgegevens:</strong> wanneer je langskwam en wat er gefactureerd werd.</li>
+      </ul>
+
+      <h2>Waarom en op welke grond?</h2>
+      <p>Ik gebruik je gegevens om je te onderzoeken en te behandelen, om je dossier bij te houden, om afspraken te plannen en om te factureren. De wet verplicht elke zorgverlener om een patiëntendossier bij te houden. De verwerking steunt op de uitvoering van de zorgovereenkomst en die wettelijke plicht (artikel 6.1.b en 6.1.c AVG), en voor gezondheidsgegevens op de uitzondering voor gezondheidszorg (artikel 9.2.h AVG). Ik gebruik je gegevens nooit voor reclame en verkoop ze niet.</p>
+
+      <h2>Met wie worden je gegevens gedeeld?</h2>
+      <ul>
+        <li><strong>Je ziekenfonds,</strong> voor zover nodig voor een terugbetaling, bijvoorbeeld binnen het zorgtraject diabetes.</li>
+        <li><strong>Je arts of andere zorgverleners</strong> die je behandelen, als dat nodig is voor je zorg.</li>
+        <li><strong>Dienstverleners die in mijn opdracht werken,</strong> zoals de leverancier van de online agenda (Crossuite). Zij mogen je gegevens alleen gebruiken voor die opdracht.</li>
+      </ul>
+      <p>Daarbuiten deel ik je gegevens alleen als de wet dat oplegt.</p>
+
+      <h2>Hoe lang bewaar ik je gegevens?</h2>
+      <p>Je patiëntendossier bewaar ik minstens 30 en hoogstens 50 jaar na je laatste behandeling. Die termijn legt de wet van 22 april 2019 op de kwaliteitsvolle praktijkvoering in de gezondheidszorg op. Facturen bewaar ik zo lang als de boekhoudwetgeving vraagt.</p>
+
+      <h2>Deze website</h2>
+      <p>Deze website plaatst geen cookies en gebruikt geen advertentienetwerken, sociale-mediaknoppen of trackers zoals Google Analytics. Lettertypes en afbeeldingen staan op de site zelf, zodat je bezoek niet doorgegeven wordt aan Google of anderen.</p>
+      <p>De site wordt gehost door Netlify. Zoals elke webserver registreert die technische gegevens zoals je IP-adres, de bezochte pagina en het tijdstip van je bezoek, om de site veilig en bereikbaar te houden. Uit diezelfde servergegevens haal ik ook bezoekersstatistieken via Netlify Analytics: hoeveel mensen de site bezoeken en welke pagina's ze bekijken. Daarvoor is geen cookie of extra script nodig, en ik zie alleen totalen, niet wie je bent. Netlify is een Amerikaans bedrijf; de doorgifte gebeurt binnen het EU-VS-kader voor gegevensbescherming.</p>
+      <p>Maak je online een afspraak, dan kom je in de agenda van Crossuite terecht. De gegevens die je daar invult, worden in mijn opdracht verwerkt om je afspraak in te plannen en je eraan te herinneren. Klik je op de link naar Google Maps, dan gelden de regels van Google.</p>
+
+      <h2>Je rechten</h2>
+      <p>Je hebt het recht om je gegevens in te kijken en er een kopie van te krijgen, om foute gegevens te laten verbeteren, en om bezwaar te maken of de verwerking te laten beperken. Je kan ook vragen om gegevens te wissen, behalve wat ik wettelijk moet bewaren, zoals je patiëntendossier. Het inzagerecht in je dossier staat ook in de wet op de patiëntenrechten.</p>
+      <p>Stuur je vraag naar <a href={`mailto:${site.email}`}>{site.email}</a>. Ik antwoord binnen een maand.</p>
+      <p>Ben je niet tevreden over hoe ik met je gegevens omga, dan kan je klacht indienen bij de <a href="https://www.gegevensbeschermingsautoriteit.be" rel="noopener">Gegevensbeschermingsautoriteit</a>, Drukpersstraat 35, 1000 Brussel.</p>
+
+      <h2>Beveiliging</h2>
+      <p>Je dossier is alleen toegankelijk voor mij en voor wie in mijn opdracht en onder beroepsgeheim werkt. Ik neem passende technische en organisatorische maatregelen om je gegevens te beschermen tegen verlies en misbruik.</p>
+
+      <p><em>Laatst bijgewerkt op {updated}.</em></p>
+    </div>
+  </section>
+</Base>

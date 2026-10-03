@@ -130,7 +130,7 @@ const year = new Date().getFullYear();
             <a href={`tel:${site.phoneIntl}`}>{site.phone}</a><br />
             <a href={`mailto:${site.email}`}>{site.email}</a>
           </p>
-          <p class="small">Telefonisch bereikbaar {site.phoneHours.days} van 9u tot 16u.<br />RIZIV-nummer {site.riziv}</p>
+          <p class="small">Telefonisch bereikbaar {site.phoneHours.days} van 9u tot 16u.<br />RIZIV-nummer {site.riziv}<br />Ondernemingsnummer {site.kbo}</p>
         </div>
         <div>
           <p class="footer-title">Behandelingen</p>
@@ -153,7 +153,7 @@ const year = new Date().getFullYear();
         </div>
       </div>
       <p class="wrap copyright">
-        © {year} {site.name} · Website door <a href="https://coopconsult.be/" rel="noopener">Coop Consult</a>
+        © {year} {site.name} · <a href="/privacyverklaring/">Privacyverklaring</a> · Website door <a href="https://coopconsult.be/" rel="noopener">Coop Consult</a>
       </p>
     </footer>
   </body>

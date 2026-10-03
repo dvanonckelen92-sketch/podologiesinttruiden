@@ -14,6 +14,7 @@ export const GET: APIRoute = () => {
     '',
     `- Podoloog: ${site.practitioner}`,
     `- RIZIV-nummer: ${site.riziv}`,
+    `- Ondernemingsnummer (KBO): ${site.kbo}`,
     `- Adres: ${a.street}, ${a.postalCode} ${a.locality}, België`,
     `- Telefoon: ${site.phone} (bereikbaar ${site.phoneHours.days}, 9u tot 16u)`,
     `- E-mail: ${site.email}`,

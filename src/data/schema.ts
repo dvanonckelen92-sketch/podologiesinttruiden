@@ -34,6 +34,7 @@ export function baseGraph(logoUrl: string, imageUrl: string) {
       medicalSpecialty: 'Podiatric',
       priceRange: '€15 - €195',
       currenciesAccepted: 'EUR',
+      identifier: { '@type': 'PropertyValue', propertyID: 'KBO-ondernemingsnummer', value: site.kbo },
       address: postalAddress,
       geo: { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng },
       hasMap: site.mapsUrl,
