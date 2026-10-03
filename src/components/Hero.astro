@@ -6,7 +6,7 @@ interface Props { image: ImageMetadata; alt: string; eyebrow?: string; compact?:
 const { image, alt, eyebrow, compact = false, position = 'center' } = Astro.props;
 ---
 <section class:list={['hero', { compact }]}>
-  <Image src={image} alt={alt} widths={[640, 1024, 1600, 2000]} sizes="100vw" loading="eager" fetchpriority="high" class="hero-img" style={`object-position:${position}`} />
+  <Image src={image} alt={alt} width={1920} widths={[640, 1024, 1440, 1920]} quality={60} sizes="100vw" loading="eager" fetchpriority="high" class="hero-img" style={`object-position:${position}`} />
   <div class="hero-inner wrap">
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
     <slot />
