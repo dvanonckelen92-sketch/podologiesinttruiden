@@ -1,3 +1,6 @@
+/* Arial met de maten van Inter, zodat de tekst niet verspringt als Inter inlaadt. */
+@font-face { font-family: 'Inter Fallback'; src: local('Arial'); size-adjust: 107.12%; ascent-override: 90.49%; descent-override: 22.56%; line-gap-override: 0%; }
+
 :root {
   --bg: #e9ecf1;
   --surface: #ffffff;
@@ -14,7 +17,7 @@
   --line: #d3d9d6;
   --radius: 18px;
   --wrap: 1120px;
-  --font: 'Inter Variable', Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font: 'Inter Variable', Inter, 'Inter Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
 
 *,

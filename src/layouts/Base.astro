@@ -6,6 +6,7 @@ import type { ImageMetadata } from 'astro';
 import { site, nav, pageMeta } from '../data/site';
 import { baseGraph, webPage, breadcrumbs, type Crumb } from '../data/schema';
 import logo from '../assets/logoPodologieStTruiden.png';
+import interFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 import defaultOg from '../assets/iStock-insoles.jpg';
 
 interface Props {
@@ -52,6 +53,7 @@ const year = new Date().getFullYear();
     <link rel="canonical" href={canonical} />
     {noindex ? <meta name="robots" content="noindex, follow" /> : <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />}
     <meta name="theme-color" content="#2b5544" />
+    <link rel="preload" href={interFont} as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap.xml" />
@@ -80,7 +82,7 @@ const year = new Date().getFullYear();
     <header class="site-header">
       <div class="bar">
         <a href="/" class="brand" aria-label={`${site.name}, naar de homepage`}>
-          <Image src={logo} alt={`Logo ${site.name}`} width={56} height={58} loading="eager" />
+          <Image src={logo} alt={`Logo ${site.name}`} width={56} height={58} densities={[1, 2, 3]} loading="eager" />
           <span>Podologie<br />Sint-Truiden</span>
         </a>
         <nav aria-label="Hoofdmenu" class="nav-desktop">
@@ -128,7 +130,8 @@ const year = new Date().getFullYear();
           </p>
           <p>
             <a href={`tel:${site.phoneIntl}`}>{site.phone}</a><br />
-            <a href={`mailto:${site.email}`}>{site.email}</a>
+            <a href={`mailto:${site.email}`}>{site.email}</a><br />
+            <a href={site.social.facebook} rel="noopener">Facebook</a>
           </p>
           <p class="small">Telefonisch bereikbaar {site.phoneHours.days} van 9u tot 16u.<br />RIZIV-nummer {site.riziv}<br />Ondernemingsnummer {site.kbo}</p>
         </div>

@@ -30,6 +30,11 @@ export const site = {
   bookingUrl: 'https://bookings.crossuite.app/e03ea36d-d8b3-4ac2-bc91-00aea878e5cb',
   mapsUrl:
     'https://www.google.com/maps/search/?api=1&query=Podologie+Sint-Truiden+Bevingen-Centrum+7+3800+Sint-Truiden',
+  // Gecontroleerde profielen (zelfde adres en e-mail). Komen in schema.org als sameAs.
+  social: {
+    facebook: 'https://www.facebook.com/p/Podologie-Sint-Truiden-100063630757089/',
+    linkedin: 'https://www.linkedin.com/in/sarah-thoelen-9728957/',
+  },
   areaServed: ['Sint-Truiden', 'Bevingen', 'Brustem', 'Zepperen', 'Velm', 'Gingelom', 'Nieuwerkerken', 'Landen'],
 } as const;
 
