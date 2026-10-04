@@ -23,7 +23,9 @@ const postalAddress = {
 export function baseGraph(logoUrl: string, imageUrl: string) {
   return [
     {
-      '@type': ['MedicalBusiness', 'LocalBusiness'],
+      // MedicalClinic is zowel LocalBusiness (via MedicalBusiness) als MedicalOrganization;
+      // alleen die laatste kent medicalSpecialty.
+      '@type': 'MedicalClinic',
       '@id': ORG_ID,
       name: site.name,
       url: `${BASE}/`,
@@ -31,7 +33,7 @@ export function baseGraph(logoUrl: string, imageUrl: string) {
       image: imageUrl,
       telephone: site.phoneIntl,
       email: site.email,
-      medicalSpecialty: 'Podiatric',
+      medicalSpecialty: 'https://schema.org/Podiatric',
       priceRange: '€15 - €195',
       currenciesAccepted: 'EUR',
       identifier: { '@type': 'PropertyValue', propertyID: 'KBO-ondernemingsnummer', value: site.kbo },
