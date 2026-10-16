@@ -235,7 +235,7 @@ export const pages: PageMeta[] = [
     seoTitle: 'Privacyverklaring',
     description:
       'Hoe Podologie Sint-Truiden omgaat met je gegevens: welke gegevens in je patiëntendossier komen, hoe lang ze bewaard worden en welke rechten je hebt.',
-    updated: '2026-10-03',
+    updated: '2026-10-16',
     priority: 0.2,
   },
 ];
