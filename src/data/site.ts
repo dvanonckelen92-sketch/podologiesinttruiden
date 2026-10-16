@@ -38,6 +38,36 @@ export const site = {
   areaServed: ['Sint-Truiden', 'Bevingen', 'Brustem', 'Zepperen', 'Velm', 'Gingelom', 'Nieuwerkerken', 'Landen'],
 } as const;
 
+/**
+ * Tijdelijke melding bovenaan elke pagina (verlof, sluiting). Zet `until` op
+ * de laatste dag dat ze zichtbaar moet zijn: daarna verdwijnt ze vanzelf, ook
+ * zonder nieuwe deploy. Geen melding: `notice = null`.
+ *
+ * Bewust een balk en geen popup: Google raadt dialogen af die de inhoud
+ * afdekken (developers.google.com/search/docs/appearance/avoid-intrusive-interstitials).
+ */
+export type Notice = {
+  id: string;
+  until: string;
+  /** Eerste alinea, in het vet. */
+  title: string;
+  /** Volgende alinea's. */
+  text: string[];
+  /** Dit stukje tekst wordt een link naar de online afsprakenmodule. */
+  bookingLinkText?: string;
+};
+
+export const notice: Notice | null = {
+  id: 'verlof-2026-10',
+  until: '2026-11-08',
+  title: 'De praktijk is gesloten van 19 oktober t.e.m. 25 oktober en van 2 november t.e.m. 8 november.',
+  text: [
+    'Tijdens deze periodes ben ik niet bereikbaar voor telefoons, e-mails of berichten. U kunt wel steeds online een afspraak inplannen via de afsprakenmodule op deze website.',
+    'Bedankt voor uw begrip!',
+  ],
+  bookingLinkText: 'afsprakenmodule',
+};
+
 export type Price = {
   id: string;
   label: string;

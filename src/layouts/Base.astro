@@ -3,7 +3,7 @@ import '@fontsource-variable/inter';
 import '../styles/global.css';
 import { getImage, Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-import { site, nav, pageMeta } from '../data/site';
+import { site, nav, pageMeta, notice } from '../data/site';
 import { baseGraph, webPage, breadcrumbs, type Crumb } from '../data/schema';
 import logo from '../assets/logoPodologieStTruiden.png';
 import interFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
@@ -41,6 +41,8 @@ const graph = {
 };
 
 const isCurrent = (p: string) => (p === path ? 'page' : undefined);
+// Al voorbij bij de build: niet eens in de HTML zetten.
+const showNotice = notice && new Date().toISOString().slice(0, 10) <= notice.until;
 const year = new Date().getFullYear();
 ---
 <!doctype html>
@@ -103,6 +105,39 @@ const year = new Date().getFullYear();
         </details>
       </div>
     </header>
+
+    {showNotice && (
+      <>
+        <aside class="notice wrap" id="notice" aria-label="Mededeling" data-id={notice.id} data-until={notice.until}>
+          <div>
+            <p><strong>{notice.title}</strong></p>
+            {notice.text.map((t) => {
+              const [before, after] = notice.bookingLinkText ? t.split(notice.bookingLinkText) : [t];
+              return after === undefined
+                ? <p>{t}</p>
+                : <p>{before}<a href={site.bookingUrl} rel="noopener">{notice.bookingLinkText}</a>{after}</p>;
+            })}
+            <button type="button" class="notice-close" aria-label="Mededeling sluiten">×</button>
+          </div>
+        </aside>
+        {/* Meteen na de balk en synchroon, zodat een verlopen of weggeklikte melding verdwijnt vóór de eerste paint (geen layout shift). */}
+        <script is:inline>
+          (function () {
+            var n = document.getElementById('notice');
+            var key = 'notice-closed:' + n.dataset.id;
+            var closed = false;
+            try { closed = localStorage.getItem(key) === '1'; } catch (e) {}
+            var today = new Date();
+            var iso = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+            if (closed || iso > n.dataset.until) { n.hidden = true; return; }
+            n.querySelector('.notice-close').addEventListener('click', function () {
+              n.hidden = true;
+              try { localStorage.setItem(key, '1'); } catch (e) {}
+            });
+          })();
+        </script>
+      </>
+    )}
 
     {crumbs.length > 0 && (
       <nav aria-label="Kruimelpad" class="crumbs wrap">
