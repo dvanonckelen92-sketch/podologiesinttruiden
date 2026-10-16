@@ -78,6 +78,7 @@ const year = new Date().getFullYear();
     <meta name="twitter:card" content="summary_large_image" />
 
     <script type="application/ld+json" set:html={JSON.stringify(graph)} />
+    {showNotice && <script is:inline src="/notice.js" data-id={notice.id} data-until={notice.until}></script>}
   </head>
   <body>
     <a class="skip" href="#inhoud">Spring naar de inhoud</a>
@@ -107,22 +108,18 @@ const year = new Date().getFullYear();
     </header>
 
     {showNotice && (
-      <>
-        <aside class="notice wrap" id="notice" aria-label="Mededeling" data-id={notice.id} data-until={notice.until}>
-          <div>
-            <p><strong>{notice.title}</strong></p>
-            {notice.text.map((t) => {
-              const [before, after] = notice.bookingLinkText ? t.split(notice.bookingLinkText) : [t];
-              return after === undefined
-                ? <p>{t}</p>
-                : <p>{before}<a href={site.bookingUrl} rel="noopener">{notice.bookingLinkText}</a>{after}</p>;
-            })}
-            <button type="button" class="notice-close" aria-label="Mededeling sluiten">×</button>
-          </div>
-        </aside>
-        {/* Synchroon en meteen na de balk; zie public/notice.js. */}
-        <script is:inline src="/notice.js"></script>
-      </>
+      <aside class="notice wrap" aria-label="Mededeling">
+        <div>
+          <p><strong>{notice.title}</strong></p>
+          {notice.text.map((t) => {
+            const [before, after] = notice.bookingLinkText ? t.split(notice.bookingLinkText) : [t];
+            return after === undefined
+              ? <p>{t}</p>
+              : <p>{before}<a href={site.bookingUrl} rel="noopener">{notice.bookingLinkText}</a>{after}</p>;
+          })}
+          <button type="button" class="notice-close" aria-label="Mededeling sluiten">×</button>
+        </div>
+      </aside>
     )}
 
     {crumbs.length > 0 && (
